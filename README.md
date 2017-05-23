@@ -1,2 +1,2 @@
 # grate-overlay
-overlay for grate-driver
+Overlay for grate-driver
