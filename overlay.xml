@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <repositories version="1.0">
-<repo priority="50" status="unofficial">
+<repo priority="-900" status="unofficial">
 	<name>grate-overlay</name>
 	<description>Grate-driver Profile and Packages</description>
 	<homepage>https://github.com/dipolukarov/grate-overlay</homepage>
