@@ -8,7 +8,7 @@
 		<email>dipolukarov@gmail.com</email>
 		<name>Hostcomm, Inc</name>
 	</owner>
-	<source type="git">https://github.com/grate-driver/grate-overlay/grate-overlay.git</source>
+	<source type="git">https://github.com/grate-driver/grate-overlay.git</source>
 	<feed>https://github.com/grate-driver/grate-overlay/commits/master.atom</feed>
 </repo>
 </repositories>
