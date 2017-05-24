@@ -8,13 +8,9 @@ inherit xorg-2
 
 DESCRIPTION="X.Org libdrm library"
 HOMEPAGE="https://dri.freedesktop.org/"
-if [[ ${PV} = 9999* ]]; then
-	EGIT_REPO_URI="https://github.com/grate-driver/libdrm.git"
-else
-	SRC_URI="https://dri.freedesktop.org/${PN}/${P}.tar.bz2"
-fi
+EGIT_REPO_URI="https://github.com/grate-driver/libdrm.git"
 
-KEYWORDS=""
+KEYWORDS="~arm"
 VIDEO_CARDS="amdgpu exynos freedreno intel nouveau omap radeon tegra vc4 vivante vmware"
 for card in ${VIDEO_CARDS}; do
 	IUSE_VIDEO_CARDS+=" video_cards_${card}"
