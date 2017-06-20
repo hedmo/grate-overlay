@@ -17,6 +17,10 @@ IUSE=""
 
 RDEPEND=">=x11-libs/libvdpau-1.8.0
 	>=x11-libs/libdrm-2.4.46[video_cards_tegra]
+	x11-libs/libX11
+	x11-libs/libXext
+	x11-libs/libXfixes
+	x11-libs/libXv
 "
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
