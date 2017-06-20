@@ -3,10 +3,9 @@
 
 EAPI=5
 
-XORG_MULTILIB=yes
-inherit xorg-2
+inherit autotools git-2
 
-DESCRIPTION="HW video decode support for Tegra"
+DESCRIPTION="HW accelerated video decoding and output support for Tegra20 SoC's"
 HOMEPAGE="https://github.com/grate-driver/libvdpau-tegra"
 EGIT_REPO_URI="https://github.com/grate-driver/libvdpau-tegra.git"
 
@@ -15,10 +14,8 @@ SLOT="0"
 KEYWORDS="~arm"
 IUSE=""
 
-RDEPEND=">=x11-libs/libvdpau-1.8.0
-	>=x11-libs/libdrm-2.4.46[video_cards_tegra]
-	x11-libs/libX11
-	x11-libs/libXext
+RDEPEND=">=x11-libs/libdrm-2.4.81[video_cards_tegra]
+	x11-libs/libvdpau
 	x11-libs/libXfixes
 	x11-libs/libXv
 	x11-drivers/xf86-video-opentegra
@@ -27,10 +24,5 @@ DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
 src_prepare() {
-	xorg-2_src_prepare
-	epatch_user
-}
-
-src_configure() {
-	xorg-2_src_configure
+	eautoreconf
 }
