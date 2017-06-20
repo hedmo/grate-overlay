@@ -3,12 +3,12 @@
 <repo priority="-900" status="unofficial">
 	<name>grate-overlay</name>
 	<description>Grate-driver Profile and Packages</description>
-	<homepage>https://github.com/dipolukarov/grate-overlay</homepage>
+	<homepage>https://github.com/grate-driver/grate-overlay/</homepage>
 	<owner>
 		<email>dipolukarov@gmail.com</email>
 		<name>Hostcomm, Inc</name>
 	</owner>
-	<source type="git">https://github.com/dipolukarov/grate-overlay.git</source>
-	<feed>https://github.com/dipolukarov/grate-overlay/commits/master.atom</feed>
+	<source type="git">https://github.com/grate-driver/grate-overlay.git</source>
+	<feed>https://github.com/grate-driver/grate-overlay/commits/master.atom</feed>
 </repo>
 </repositories>
