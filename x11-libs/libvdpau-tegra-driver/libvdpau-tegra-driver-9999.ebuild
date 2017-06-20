@@ -21,6 +21,7 @@ RDEPEND=">=x11-libs/libvdpau-1.8.0
 	x11-libs/libXext
 	x11-libs/libXfixes
 	x11-libs/libXv
+	xorg-drivers[opentegra]
 "
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
