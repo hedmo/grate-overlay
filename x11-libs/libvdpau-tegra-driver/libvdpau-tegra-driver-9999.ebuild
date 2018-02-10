@@ -3,7 +3,7 @@
 
 EAPI=5
 
-inherit autotools git-2
+inherit autotools git-2 udev
 
 DESCRIPTION="HW accelerated video decoding and output support for Tegra20 SoC's"
 HOMEPAGE="https://github.com/grate-driver/libvdpau-tegra"
@@ -19,10 +19,15 @@ RDEPEND=">=x11-libs/libdrm-2.4.81[video_cards_tegra]
 	x11-libs/libXfixes
 	x11-libs/libXv
 	x11-drivers/xf86-video-opentegra
+	virtual/libudev
 "
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
 src_prepare() {
 	eautoreconf
+}
+
+pkg_postinst() {
+	udev_reload && udevadm trigger --name-match=tegra_vde
 }
