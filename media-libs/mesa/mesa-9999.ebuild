@@ -70,7 +70,7 @@ REQUIRED_USE="
 	video_cards_r300?   ( gallium x86? ( llvm ) amd64? ( llvm ) )
 	video_cards_r600?   ( gallium )
 	video_cards_radeonsi?   ( gallium llvm )
-	video_cards_tegra? ( gallium llvm )
+	video_cards_tegra? ( gallium )
 	video_cards_vc4? ( gallium )
 	video_cards_virgl? ( gallium )
 	video_cards_vivante? ( gallium gbm )
