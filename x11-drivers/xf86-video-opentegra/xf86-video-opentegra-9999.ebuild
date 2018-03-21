@@ -15,5 +15,5 @@ IUSE=""
 
 RDEPEND="x11-libs/libdrm[video_cards_tegra]
 	>=x11-base/xorg-server-1.11"
-DEPEND="${RDEPEND}"
+DEPEND="${RDEPEND} sys-devel/flex sys-devel/bison"
 
