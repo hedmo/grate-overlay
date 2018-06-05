@@ -77,15 +77,9 @@ REQUIRED_USE="
 	video_cards_vmware? ( gallium )
 "
 
-LIBDRM_DEPSTRING="=x11-libs/libdrm-9999"
-# keep correct libdrm and dri2proto dep
-# keep blocks in rdepend for binpkg
+LIBDRM_DEPSTRING=">=x11-libs/libdrm-2.4.91"
 RDEPEND="
-	!<x11-base/xorg-server-1.7
-	!<=x11-proto/xf86driproto-2.0.3
-	abi_x86_32? ( !app-emulation/emul-linux-x86-opengl[-abi_x86_32(-)] )
-	classic? ( app-eselect/eselect-mesa )
-	gallium? ( app-eselect/eselect-mesa )
+	!app-eselect/eselect-mesa
 	>=app-eselect/eselect-opengl-1.3.0
 	>=dev-libs/expat-2.1.0-r3:=[${MULTILIB_USEDEP}]
 	>=sys-libs/zlib-1.2.8[${MULTILIB_USEDEP}]
@@ -94,7 +88,7 @@ RDEPEND="
 	>=x11-libs/libXdamage-1.1.4-r1:=[${MULTILIB_USEDEP}]
 	>=x11-libs/libXext-1.3.2:=[${MULTILIB_USEDEP}]
 	>=x11-libs/libXxf86vm-1.1.3:=[${MULTILIB_USEDEP}]
-	>=x11-libs/libxcb-1.9.3:=[${MULTILIB_USEDEP}]
+	>=x11-libs/libxcb-1.13:=[${MULTILIB_USEDEP}]
 	x11-libs/libXfixes:=[${MULTILIB_USEDEP}]
 	unwind? ( sys-libs/libunwind[${MULTILIB_USEDEP}] )
 	llvm? (
@@ -113,7 +107,10 @@ RDEPEND="
 				dev-libs/libclc
 				virtual/libelf:0=[${MULTILIB_USEDEP}]
 			)
-	openmax? ( >=media-libs/libomxil-bellagio-0.9.3:=[${MULTILIB_USEDEP}] )
+	openmax? (
+		>=media-libs/libomxil-bellagio-0.9.3:=[${MULTILIB_USEDEP}]
+		x11-misc/xdg-utils
+	)
 	vaapi? (
 		>=x11-libs/libva-1.7.3:=[${MULTILIB_USEDEP}]
 		video_cards_nouveau? ( !<=x11-libs/libva-vdpau-driver-0.7.4-r3 )
@@ -223,15 +220,7 @@ DEPEND="${RDEPEND}
 	sys-devel/gettext
 	virtual/pkgconfig
 	valgrind? ( dev-util/valgrind )
-	>=x11-proto/dri2proto-2.8-r1:=[${MULTILIB_USEDEP}]
-	dri3? (
-		>=x11-proto/dri3proto-1.0:=[${MULTILIB_USEDEP}]
-		>=x11-proto/presentproto-1.0:=[${MULTILIB_USEDEP}]
-	)
-	>=x11-proto/glproto-1.4.17-r1:=[${MULTILIB_USEDEP}]
-	>=x11-proto/xextproto-7.2.1-r1:=[${MULTILIB_USEDEP}]
-	>=x11-proto/xf86driproto-2.1.1-r1:=[${MULTILIB_USEDEP}]
-	>=x11-proto/xf86vidmodeproto-2.3.1-r1:=[${MULTILIB_USEDEP}]
+	x11-base/xorg-proto
 	vulkan? (
 		$(python_gen_any_dep ">=dev-python/mako-0.7.3[\${PYTHON_USEDEP}]")
 	)
@@ -283,8 +272,8 @@ pkg_setup() {
 }
 
 src_prepare() {
-	[[ ${PV} == 9999 ]] && eautoreconf
 	eapply_user
+	[[ ${PV} == 9999 ]] && eautoreconf
 }
 
 multilib_src_configure() {
@@ -331,7 +320,7 @@ multilib_src_configure() {
 		use vaapi && myconf+=" --with-va-libdir=/usr/$(get_libdir)/va/drivers"
 
 		gallium_enable swrast
-		gallium_enable video_cards_tegra tegra
+		gallium_enable video_cards_tegra grate
 		gallium_enable video_cards_vc4 vc4
 		gallium_enable video_cards_vivante etnaviv
 		gallium_enable video_cards_vmware svga
@@ -415,37 +404,6 @@ multilib_src_configure() {
 multilib_src_install() {
 	emake install DESTDIR="${D}"
 
-	if use classic || use gallium; then
-			ebegin "Moving DRI/Gallium drivers for dynamic switching"
-			local gallium_drivers=( i915_dri.so i965_dri.so r300_dri.so r600_dri.so swrast_dri.so )
-			keepdir /usr/$(get_libdir)/dri
-			dodir /usr/$(get_libdir)/mesa
-			for x in ${gallium_drivers[@]}; do
-				if [ -f "$(get_libdir)/gallium/${x}" ]; then
-					mv -f "${ED}/usr/$(get_libdir)/dri/${x}" "${ED}/usr/$(get_libdir)/dri/${x/_dri.so/g_dri.so}" \
-						|| die "Failed to move ${x}"
-				fi
-			done
-			if use classic; then
-				emake -C "${BUILD_DIR}/src/mesa/drivers/dri" DESTDIR="${D}" install
-			fi
-			for x in "${ED}"/usr/$(get_libdir)/dri/*.so; do
-				if [ -f ${x} -o -L ${x} ]; then
-					mv -f "${x}" "${x/dri/mesa}" \
-						|| die "Failed to move ${x}"
-				fi
-			done
-			pushd "${ED}"/usr/$(get_libdir)/dri || die "pushd failed"
-			ln -s ../mesa/*.so . || die "Creating symlink failed"
-			# remove symlinks to drivers known to eselect
-			for x in ${gallium_drivers[@]}; do
-				if [ -f ${x} -o -L ${x} ]; then
-					rm "${x}" || die "Failed to remove ${x}"
-				fi
-			done
-			popd
-		eend $?
-	fi
 	if use opencl; then
 		ebegin "Moving Gallium/Clover OpenCL implementation for dynamic switching"
 		local cl_dir="/usr/$(get_libdir)/OpenCL/vendors/mesa"
@@ -475,10 +433,6 @@ multilib_src_install_all() {
 	if use !bindist; then
 		dodoc docs/patents.txt
 	fi
-
-	# Install config file for eselect mesa
-	insinto /usr/share/mesa
-	newins "${FILESDIR}/eselect-mesa.conf.9.2" eselect-mesa.conf
 }
 
 multilib_src_test() {
@@ -496,11 +450,6 @@ pkg_postinst() {
 	# Switch to the xorg implementation.
 	echo
 	eselect opengl set --use-old ${OPENGL_DIR}
-
-	# Select classic/gallium drivers
-	if use classic || use gallium; then
-		eselect mesa set --auto
-	fi
 
 	# Switch to mesa opencl
 	if use opencl; then
