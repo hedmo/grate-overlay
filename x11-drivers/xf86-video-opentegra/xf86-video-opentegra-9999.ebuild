@@ -11,11 +11,11 @@ DESCRIPTION="X.Org video driver for NVIDIA Tegra20+"
 HOMEPAGE="https://github.com/grate-driver"
 
 KEYWORDS="arm"
-IUSE="jpeg lz4 png"
+IUSE=""
 
 RDEPEND="x11-libs/libdrm[video_cards_tegra]
 	>=x11-base/xorg-server-1.11
-	jpeg? ( media-libs/libjpeg-turbo )
-	lz4? ( app-arch/lz4 )
-	png? ( media-libs/libpng )"
+	media-libs/libjpeg-turbo
+	app-arch/lz4
+	media-libs/libpng"
 DEPEND="${RDEPEND} sys-devel/flex sys-devel/bison"
