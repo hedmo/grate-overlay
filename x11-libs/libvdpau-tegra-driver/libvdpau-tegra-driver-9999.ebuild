@@ -17,6 +17,7 @@ IUSE=""
 RDEPEND=">=x11-libs/libdrm-2.4.81[video_cards_tegra]
 	x11-libs/libvdpau
 	x11-libs/libXfixes
+	x11-libs/libXrandr
 	x11-libs/libXv
 	x11-drivers/xf86-video-opentegra
 	virtual/libudev
