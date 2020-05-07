@@ -1,1 +1,2 @@
 -vdpau
+-video_cards_nouveau
