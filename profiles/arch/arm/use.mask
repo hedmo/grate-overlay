@@ -1,2 +1,5 @@
+#tegra does have
 -vdpau
+
+#tegra depends on nouveau
 -video_cards_nouveau

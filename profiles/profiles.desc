@@ -1,0 +1,3 @@
+arm	tegra20/17.0/desktop				dev
+arm	tegra20/17.0/desktop/enlightenment		dev
+arm	tegra20/17.0/desktop/enlightenment/systemd	dev
