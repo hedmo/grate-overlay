@@ -11,9 +11,13 @@ DESCRIPTION="X.Org video driver for NVIDIA Tegra20+"
 HOMEPAGE="https://github.com/grate-driver"
 
 KEYWORDS="arm"
-IUSE=""
+VIDEO_CARDS="tegra grate"
+for card in ${VIDEO_CARDS}; do
+	IUSE_VIDEO_CARDS+=" video_cards_${card}"
+done
+IUSE="${IUSE_VIDEO_CARDS}"
 
-RDEPEND="x11-libs/libdrm[video_cards_tegra]
+RDEPEND="x11-libs/libdrm[video_cards_tegra?,video_cards_grate?]
 	>=x11-base/xorg-server-1.11
 	media-libs/libjpeg-turbo
 	app-arch/lz4
