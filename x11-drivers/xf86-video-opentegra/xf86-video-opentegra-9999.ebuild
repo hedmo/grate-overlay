@@ -10,7 +10,7 @@ EGIT_REPO_URI="https://github.com/grate-driver/xf86-video-opentegra.git"
 DESCRIPTION="X.Org video driver for NVIDIA Tegra20+"
 HOMEPAGE="https://github.com/grate-driver"
 
-KEYWORDS="arm"
+KEYWORDS=""
 IUSE=""
 
 RDEPEND="x11-libs/libdrm[video_cards_tegra]

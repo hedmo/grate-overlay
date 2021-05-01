@@ -1,7 +1,7 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 inherit autotools git-r3 udev
 
@@ -11,16 +11,10 @@ EGIT_REPO_URI="https://github.com/grate-driver/libvdpau-tegra.git"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~arm"
+KEYWORDS=""
+IUSE=""
 
-VIDEO_CARDS="tegra grate"
-for card in ${VIDEO_CARDS}; do
-	IUSE_VIDEO_CARDS+=" video_cards_${card}"
-done
-
-IUSE="${IUSE_VIDEO_CARDS}"
-
-RDEPEND=">=x11-libs/libdrm-2.4.81[video_cards_tegra?,video_cards_grate?]
+RDEPEND=">=x11-libs/libdrm-2.4.81[video_cards_tegra]
 	x11-libs/libvdpau
 	x11-libs/libXfixes
 	x11-libs/libXrandr
