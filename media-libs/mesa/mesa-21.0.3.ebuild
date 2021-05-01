@@ -15,7 +15,7 @@ DESCRIPTION="OpenGL-like graphic library for Linux"
 HOMEPAGE="https://www.mesa3d.org/ https://mesa.freedesktop.org/"
 
 if [[ ${PV} == 9999 ]]; then
-	EGIT_REPO_URI="https://gitlab.freedesktop.org/mesa/mesa.git"
+	EGIT_REPO_URI="github.com/grate-driver/mesa.git"
 	inherit git-r3
 else
 	COMMIT="48de36f8d4ee7d290c2c5a76de08f3ad973f3ebf"
