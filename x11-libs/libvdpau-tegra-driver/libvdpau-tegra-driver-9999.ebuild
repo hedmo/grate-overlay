@@ -27,6 +27,7 @@ DEPEND="${RDEPEND}
 
 src_prepare() {
 	eautoreconf
+	default
 }
 
 pkg_postinst() {
