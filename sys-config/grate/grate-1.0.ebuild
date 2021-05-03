@@ -8,8 +8,6 @@ inherit toolchain-funcs
 DESCRIPTION="A configuration for portage to make the insatll from grate easy"
 HOMEPAGE="https://github.com/grate-driver"
 
-#Note: there's nothing preventing this from working on stable, but the dependencies of ltoize aren't keyworded for
-#stable, so we only can do testing
 KEYWORDS="~arm"
 
 SRC_URI=""
