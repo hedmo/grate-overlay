@@ -35,7 +35,7 @@ pkg_setup() {
 }
 pkg_preinst() {
 	GENTOOGREATE_PORTDIR=$(portageq get_repo_path ${PORTAGE_CONFIGROOT} grate-overlay)
-	GRATE_PORTAGE_DIR="${GENTOOLTO_PORTDIR}/${CATEGORY}/${PN}/files"
+	GRATE_PORTAGE_DIR="${GENTOOGRATE_PORTDIR}/${CATEGORY}/${PN}/files"
 
 	COMMON_OVERRIDES=(
 		use.mask
