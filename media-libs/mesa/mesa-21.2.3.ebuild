@@ -16,7 +16,7 @@ if [[ ${PV} == 9999 ]]; then
 	EGIT_REPO_URI="https://gitlab.freedesktop.org/mesa/mesa.git"
 	inherit git-r3
 else
-	COMMIT="325e3ec548e66a325b7b7eaacc9772410ed3ef13"
+	COMMIT="92ba621cb1aa8e7ad28454801e9a05db60dcf0ea"
 	SRC_URI="https://github.com/grate-driver/mesa/archive/${COMMIT}.tar.gz -> ${P}.tar.gz"
 	KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sparc ~x86 ~amd64-linux ~x86-linux ~sparc-solaris ~x64-solaris ~x86-solaris"
 fi
