@@ -226,8 +226,8 @@ BDEPEND="
 	$(python_gen_any_dep ">=dev-python/mako-0.8.0[\${PYTHON_USEDEP}]")
 	wayland? ( dev-util/wayland-scanner[${MULTILIB_USEDEP}] )
 "
-
-S="${WORKDIR}/${MY_P}"
+S="${WORKDIR}/${PN}-${COMMIT}"
+#S="${WORKDIR}/${MY_P}"
 EGIT_CHECKOUT_DIR=${S}
 
 QA_WX_LOAD="
