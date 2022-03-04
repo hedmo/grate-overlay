@@ -9,7 +9,7 @@ inherit llvm meson multilib-minimal python-any-r1 linux-info
 
 OPENGL_DIR="xorg-x11"
 
-MY_P="${P/_/-}"
+MY_P="${PN}-${COMMIT}"
 
 DESCRIPTION="OpenGL-like graphic library for Linux"
 HOMEPAGE="https://www.mesa3d.org/ https://mesa.freedesktop.org/"
